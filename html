@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earth's Ice Age Timelapse Slider (500 Million Years)</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            max-width: 700px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            color: #38bdf8;
+        }
+        .period-tag {
+            font-size: 1.1rem;
+            color: #94a3b8;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+        .slider-container {
+            margin: 30px 0;
+        }
+        input[type=range] {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: #475569;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #38bdf8;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+        .visual-display {
+            background: #0f172a;
+            border: 2px solid #334155;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .ice-status {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .description {
+            font-size: 1rem;
+            color: #cbd5e1;
+            line-height: 1.5;
+        }
+        .labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Earth's Ice Cover & Retreat</h1>
+    <div id="timeDisplay" class="period-tag">Loading...</div>
+
+    <div class="visual-display">
+        <div id="iceStatus" class="ice-status">--</div>
+        <div id="description" class="description">--</div>
+    </div>
+
+    <div class="slider-container">
+        <input type="range" id="timeSlider" min="0" max="4" step="1" value="0">
+        <div class="labels">
+            <span>500 Mya (Cambrian)</span>
+            <span>300 Mya (Carboniferous)</span>
+            <span>50 Mya (Eocene)</span>
+            <span>20 Mya (Miocene)</span>
+            <span>Present Day</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    const data = [
+        {
+            time: "500 Million Years Ago (Cambrian Period)",
+            status: "No Significant Ice Sheets (Hothouse Earth)",
+            desc: "Earth was remarkably warm with high atmospheric carbon dioxide levels. Shallow seas flooded continents, and polar regions were completely ice-free."
+        },
+        {
+            time: "300 Million Years Ago (Carboniferous-Permian)",
+            status: "Major Gondwanan Glaciation",
+            desc: "A massive ice age took hold as the supercontinent Gondwana drifted over the South Pole. Expansive ice sheets blanketed large parts of modern-day South America, Africa, Antarctica, and Australia."
+        },
+        {
+            time: "50 Million Years Ago (Eocene Epoch)",
+            status: "Greenhouse World with Early Polar Caps",
+            desc: "The planet experienced extreme warmth ('Eocene Thermal Maximum'). However, tectonic shifts began isolating Antarctica, allowing small, localized ice caps to form at the poles."
+        },
+        {
+            time: "20 Million Years Ago (Miocene Epoch)",
+            status: "Expansion of Antarctic Ice Sheet",
+            desc: "Global temperatures cooled significantly. The Antarctic ice sheet expanded dramatically and locked in place, while northern polar regions began experiencing seasonal freezing."
+        },
+        {
+            time: "Present Day (Holocene / Anthropocene)",
+            status: "Cyclic Glaciations & Modern Retreat",
+            desc: "Earth alternates between glacial ('ice age') and interglacial periods driven by orbital cycles. Currently, human-driven warming is causing rapid ice retreat at both poles and high-altitude glaciers."
+        }
+    ];
+
+    const slider = document.getElementById('timeSlider');
+    const timeDisplay = document.getElementById('timeDisplay');
+    const iceStatus = document.getElementById('iceStatus');
+    const description = document.getElementById('description');
+
+    function updateSlider(index) {
+        timeDisplay.textContent = data[index].time;
+        iceStatus.textContent = data[index].status;
+        description.textContent = data[index].desc;
+        
+        // Dynamic color shift based on ice conditions
+        if(index === 1 || index === 3 || index === 4) {
+            iceStatus.style.color = "#38bdf8"; // Ice blue
+        } else {
+            iceStatus.style.color = "#fb923c"; // Warm orange
+        }
+    }
+
+    slider.addEventListener('input', (e) => {
+        updateSlider(e.target.value);
+    });
+
+    // Initialize
+    updateSlider(0);
+</script>
+
+</body>
+</html>
